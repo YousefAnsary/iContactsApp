@@ -10,6 +10,10 @@ import RxCocoa
 
 class HomeViewModel: ViewModel {
     
+    deinit {
+        print("\(self) deinit")
+    }
+    
     let contactsRelay: BehaviorRelay<[Contact]>
     
     override init() {

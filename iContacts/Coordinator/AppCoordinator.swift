@@ -34,9 +34,6 @@ class AppCoordinator {
         vc.navigateToAddContact = {
             let addVC = AddContactViewController.initialize(fromStoryBoardNamed: "Main")
             let addVM = AddContactViewModel(addSuccessCompletion: vm.contactDidAdd(_:))
-//            addVM.contactDidAdd = { contact in
-//                vm.contactDidAdd(contact)
-//            }
             addVC.viewModel = addVM
             vc.present(addVC, animated: true)
         }
@@ -44,11 +41,12 @@ class AppCoordinator {
             let addVC = AddContactViewController.initialize(fromStoryBoardNamed: "Main")
             let contact = vm.contactsRelay.value[index]
             let addVM = AddContactViewModel(contact: contact, index: index, editSuccessCompletion: vm.contactDidUpdated(atIndex:_:))
-//            addVM.contactDidAdd = { contact in
-//                vm.contactDidAdd(contact)
-//            }
             addVC.viewModel = addVM
             vc.present(addVC, animated: true)
+        }
+        vc.logutDidTapped = {
+            UserSession.endCurrent()
+            self.startAsUnAuthenticated()
         }
         setupNavigationController()
         navigationController.pushViewController(vc, animated: true)
@@ -65,6 +63,7 @@ class AppCoordinator {
             let vm = RegisterViewModel()
             vc.viewModel = vm
             vc.navigateToHome = self.startAsAuthenticated
+            self.navigationController.pushViewController(vc, animated: true)
         }
         setupNavigationController()
         navigationController.pushViewController(vc, animated: true)

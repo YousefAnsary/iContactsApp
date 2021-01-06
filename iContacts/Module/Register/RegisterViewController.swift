@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class RegisterViewController: ViewController<RegisterViewModel> {
 
@@ -35,7 +36,7 @@ class RegisterViewController: ViewController<RegisterViewModel> {
         viewModel.registerBtnColorDriver.drive(registerBtn.rx.backgroundColor).disposed(by: disposeBag)
         registerBtn.rx.tap.flatMap{
             viewModel.register()
-        }.subscribe(onNext: { [unowned self] val in
+        }.observeOn(MainScheduler.instance).subscribe(onNext: { [unowned self] val in
             self.navigateToHome?()
         }).disposed(by: disposeBag)
     }

@@ -10,16 +10,22 @@ import RxSwift
 
 class HomeViewController: ViewController<HomeViewModel>, UITableViewDelegate {
 
+    deinit {
+        print("\(self) deinit")
+    }
+    
     //MARK: - Variables
     @IBOutlet private weak var contactsTableView: UITableView!
     @IBOutlet private weak var addContactBtn: UIButton!
     var navigateToAddContact: (()-> Void)?
     var navigateToEditContact: ((Int)-> Void)?
+    var logutDidTapped: (()-> Void)?
     
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationBarBtns()
         setupTableView()
         setupButtonsBinding()
         bindViewModel()
@@ -28,6 +34,15 @@ class HomeViewController: ViewController<HomeViewModel>, UITableViewDelegate {
     }
     
     //MARK: - Private Functions
+    private func setupNavigationBarBtns() {
+        let logoutBtn = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutDidTapped))
+        navigationItem.leftBarButtonItem = logoutBtn
+    }
+    
+    @objc private func logoutDidTapped() {
+        logutDidTapped?()
+    }
+    
     private func setupTableView() {
         contactsTableView.register(cellClass: ContactCell.self)
         contactsTableView.rx.setDelegate(self).disposed(by: disposeBag)

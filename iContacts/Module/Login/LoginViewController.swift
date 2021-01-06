@@ -25,6 +25,7 @@ class LoginViewController: ViewController<LoginViewModel> {
         super.viewDidLoad()
         
         bindViewModel()
+        bindBtnsActions()
     }
     
     //MARK: - Private Functions
@@ -34,10 +35,17 @@ class LoginViewController: ViewController<LoginViewModel> {
         passwordTF.rx.text.orEmpty.bind(to: viewModel!.passwordRelay).disposed(by: disposeBag)
         viewModel!.loginBtnEnableDriver.drive(loginBtn.rx.isEnabled).disposed(by: disposeBag)
         viewModel!.loginBtnColorDriver.drive(loginBtn.rx.backgroundColor).disposed(by: disposeBag)
+    }
+    
+    private func bindBtnsActions() {
         loginBtn.rx.tap.flatMap { [unowned self] in
             self.viewModel!.login()
         }.observeOn(MainScheduler.instance).subscribe(onNext: { [unowned self] value in
             self.navigateToHome?()
+        }).disposed(by: disposeBag)
+        
+        registerBtn.rx.tap.subscribe(weak: self, onNext: { owner, _ in
+            owner.navigateToRegister?()
         }).disposed(by: disposeBag)
     }
     

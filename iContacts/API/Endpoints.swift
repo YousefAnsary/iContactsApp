@@ -11,7 +11,7 @@ import JetRequest
 enum Endpoint: String {
     
     case login = "login"
-    case register = "Register"
+    case register = "register"
     case getContacts = "contacts/get"
     case addContact = "contacts/create"
     case deleteContact = "contacts/delete"
