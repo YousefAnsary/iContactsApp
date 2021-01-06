@@ -1,0 +1,41 @@
+PODS:
+  - IQKeyboardManager (6.5.6)
+  - JetRequest (0.1.0)
+  - JGProgressHUD (2.2)
+  - RxCocoa (4.5.0):
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxSwift (4.5.0)
+
+DEPENDENCIES:
+  - IQKeyboardManager
+  - JetRequest (from `https://github.com/YousefAnsary/JetRequest.git`)
+  - JGProgressHUD
+  - RxCocoa (~> 4.4)
+  - RxSwift (~> 4.4)
+
+SPEC REPOS:
+  trunk:
+    - IQKeyboardManager
+    - JGProgressHUD
+    - RxCocoa
+    - RxSwift
+
+EXTERNAL SOURCES:
+  JetRequest:
+    :git: https://github.com/YousefAnsary/JetRequest.git
+
+CHECKOUT OPTIONS:
+  JetRequest:
+    :commit: 9ed49bd6b021be25841c5adb4c47ea4f172c7143
+    :git: https://github.com/YousefAnsary/JetRequest.git
+
+SPEC CHECKSUMS:
+  IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
+  JetRequest: 7c7e7d9dc77109c13841de17cea326fd211146f7
+  JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
+  RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+
+PODFILE CHECKSUM: cf3ba7be079ed4d79ea797ca1f572fa6fad2a985
+
+COCOAPODS: 1.10.0

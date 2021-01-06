@@ -1,0 +1,6 @@
+framework module JetRequest {
+  umbrella header "JetRequest-umbrella.h"
+
+  export *
+  module * { export * }
+}

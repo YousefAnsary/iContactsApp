@@ -1,0 +1,23 @@
+{
+  "name": "JetRequest",
+  "platforms": {
+    "ios": "11.0"
+  },
+  "summary": "Make your API requests easily.",
+  "version": "0.1.0",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Yousef": "yosefali97@hotmail.com"
+  },
+  "homepage": "https://github.com/YousefAnsary/JetRequest",
+  "source": {
+    "git": "https://github.com/YousefAnsary/JetRequest.git",
+    "tag": "0.1.0"
+  },
+  "source_files": "JetRequest/*.{swift}",
+  "swift_versions": "5",
+  "swift_version": "5"
+}

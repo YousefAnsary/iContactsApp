@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" rowHeight="110" id="KTg-Br-yr1" customClass="ContactCell" customModule="iContacts" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KTg-Br-yr1" id="OWl-a2-xG4">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j2A-Jq-TA0" customClass="View" customModule="iContacts" customModuleProvider="target">
+                        <rect key="frame" x="8" y="8" width="398" height="94"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CFe-Ch-aea">
+                                <rect key="frame" x="12" y="37.5" width="43" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" systemColor="systemGray3Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Y2s-7b-hkI">
+                                <rect key="frame" x="330" y="25.5" width="54" height="43"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="phones" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dlc-9c-WmD">
+                                        <rect key="frame" x="0.0" y="0.0" width="54" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" systemColor="systemGray3Color"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="emails" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qi-85-72w">
+                                        <rect key="frame" x="0.0" y="23.5" width="54" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" systemColor="systemGray3Color"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.037296660958904111" green="0.047329837328767124" blue="0.59110124143835618" alpha="0.20224208047945216" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="CFe-Ch-aea" secondAttribute="bottom" constant="37" id="7hH-V4-uNA"/>
+                            <constraint firstItem="CFe-Ch-aea" firstAttribute="top" secondItem="j2A-Jq-TA0" secondAttribute="top" constant="37.5" id="JUs-cZ-mzV"/>
+                            <constraint firstItem="CFe-Ch-aea" firstAttribute="leading" secondItem="j2A-Jq-TA0" secondAttribute="leading" constant="12" id="OZu-V3-3mt"/>
+                            <constraint firstAttribute="trailing" secondItem="Y2s-7b-hkI" secondAttribute="trailing" constant="14" id="aJs-0D-C3Q"/>
+                            <constraint firstItem="Y2s-7b-hkI" firstAttribute="centerY" secondItem="j2A-Jq-TA0" secondAttribute="centerY" id="gId-c7-kXH"/>
+                            <constraint firstItem="Y2s-7b-hkI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CFe-Ch-aea" secondAttribute="trailing" constant="20" id="xvR-Hz-oui"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="0.0" height="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.69999999999999996"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" systemColor="systemIndigoColor"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="NO"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.1274067163" green="0.13568913939999999" blue="0.1883754134" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="j2A-Jq-TA0" secondAttribute="bottom" constant="8" id="gIi-JP-DC8"/>
+                    <constraint firstItem="j2A-Jq-TA0" firstAttribute="leading" secondItem="OWl-a2-xG4" secondAttribute="leading" constant="8" id="iqe-2K-nt3"/>
+                    <constraint firstItem="j2A-Jq-TA0" firstAttribute="top" secondItem="OWl-a2-xG4" secondAttribute="top" constant="8" id="oGx-oe-kvT"/>
+                    <constraint firstAttribute="trailing" secondItem="j2A-Jq-TA0" secondAttribute="trailing" constant="8" id="uP2-8z-IVs"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="emailsCountLbl" destination="1qi-85-72w" id="BVt-vx-Hl6"/>
+                <outlet property="nameLbl" destination="CFe-Ch-aea" id="yMi-QS-jIa"/>
+                <outlet property="phoneNumbersCountLbl" destination="Dlc-9c-WmD" id="D7l-iC-vE5"/>
+            </connections>
+            <point key="canvasLocation" x="179.71014492753625" y="100.44642857142857"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
