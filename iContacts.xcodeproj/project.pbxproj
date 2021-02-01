@@ -28,7 +28,6 @@
 		CA8DA4D725A50B040053ED98 /* Reactive+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8DA4D625A50B040053ED98 /* Reactive+UITableView.swift */; };
 		CA8DA4DC25A50B220053ED98 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8DA4DB25A50B220053ED98 /* UITableView+.swift */; };
 		CA8DA4E125A50CFE0053ED98 /* Observable+Decoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8DA4E025A50CFE0053ED98 /* Observable+Decoding.swift */; };
-		CA8DA4E625A5129D0053ED98 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8DA4E525A5129D0053ED98 /* Coordinator.swift */; };
 		CAD6B3F3259F8385008B3A24 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD6B3F2259F8385008B3A24 /* SceneDelegate.swift */; };
 		CAD6B40B259F8387008B3A24 /* iContactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD6B40A259F8387008B3A24 /* iContactsTests.swift */; };
 		CAD6B416259F8387008B3A24 /* iContactsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD6B415259F8387008B3A24 /* iContactsUITests.swift */; };
@@ -92,7 +91,6 @@
 		CA8DA4D625A50B040053ED98 /* Reactive+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+UITableView.swift"; sourceTree = "<group>"; };
 		CA8DA4DB25A50B220053ED98 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		CA8DA4E025A50CFE0053ED98 /* Observable+Decoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Decoding.swift"; sourceTree = "<group>"; };
-		CA8DA4E525A5129D0053ED98 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CAD6B3ED259F8385008B3A24 /* iContacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iContacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAD6B3F2259F8385008B3A24 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CAD6B401259F8387008B3A24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -219,7 +217,6 @@
 			isa = PBXGroup;
 			children = (
 				CA5D4BB825A0EF4700FDFD5F /* AppCoordinator.swift */,
-				CA8DA4E525A5129D0053ED98 /* Coordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -580,7 +577,6 @@
 				CA124E9E25A389C4000B7FD8 /* InputTableViewCell.swift in Sources */,
 				CAD6B445259F83F3008B3A24 /* iContacts.xcdatamodeld in Sources */,
 				CAD6B442259F83F3008B3A24 /* LoginViewController.swift in Sources */,
-				CA8DA4E625A5129D0053ED98 /* Coordinator.swift in Sources */,
 				CA8DA4D725A50B040053ED98 /* Reactive+UITableView.swift in Sources */,
 				CA5D4BAD25A0B0A900FDFD5F /* UserSession.swift in Sources */,
 				CA21E04F25A2059C0091FB42 /* RegisterViewModel.swift in Sources */,

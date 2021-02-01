@@ -14,9 +14,6 @@ class AuthenticationService {
     class func login(email: String, password: String)-> Observable<UserData> {
         let ep = Endpoint.login
         let params = ["email": email, "password": password]
-        var headers = ep.headers
-        let boundary = "\(Bundle.main.bundleIdentifier ?? "iOSApp")/JetRequest"
-        headers["Content-Type"] = "multipart/form-data; boundary=\(boundary)"
         return JetRequest.request(path: ep.rawValue, httpMethod: ep.httpMethod)
                .set(bodyParams: params, encoding: .formData).decodedObservable()
     }
