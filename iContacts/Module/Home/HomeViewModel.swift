@@ -22,27 +22,25 @@ class HomeViewModel: ViewModel {
     
     func getContacts() {
         self.isLoadingSubject.onNext(true)
-        return ContactsService.getContacts().catchError { err in
-            self.isLoadingSubject.onNext(false)
-            self.errorSubject.onNext(err)
-            return .empty()
-        }.do(onNext: { value in
-            self.isLoadingSubject.onNext(false)
-        }).bind(to: contactsRelay).disposed(by: disposeBag)
+        ContactsService.getContacts().subscribe { [weak self] contacts in
+            self?.isLoadingSubject.onNext(false)
+            self?.contactsRelay.accept(contacts)
+        } onError: { [weak self] err in
+            self?.errorSubject.onNext(err)
+        }.disposed(by: self.disposeBag)
     }
     
     func deleteContact(atIndex index: Int) {
         isLoadingSubject.onNext(true)
-        ContactsService.deleteContact(withId: contactsRelay.value[index].id ?? -1).catchError { [weak self] err in
-            self?.isLoadingSubject.onNext(false)
-            self?.errorSubject.onNext(err)
-            return .empty()
-        }.subscribe(weak: self, onNext: { owner, _ in
-            owner.isLoadingSubject.onNext(false)
-            var contacts = owner.contactsRelay.value
+        ContactsService.deleteContact(withId: contactsRelay.value[index].id ?? -1).subscribe { [weak self] in
+            guard let self = self else { return }
+            self.isLoadingSubject.onNext(false)
+            var contacts = self.contactsRelay.value
             contacts.remove(at: index)
-            owner.contactsRelay.accept(contacts)
-        }).disposed(by: disposeBag)
+            self.contactsRelay.accept(contacts)
+        } onError: { [weak self] err in
+            self?.errorSubject.onNext(err)
+        }.disposed(by: disposeBag)
     }
     
     func contactDidAdd(_ contact: Contact) {
@@ -56,5 +54,4 @@ class HomeViewModel: ViewModel {
         contacts[index] = contact
         contactsRelay.accept(contacts)
     }
-    
 }

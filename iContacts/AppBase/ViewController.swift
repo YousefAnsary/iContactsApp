@@ -18,27 +18,29 @@ class ViewController<T: ViewModel>: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         hud.textLabel.text = "Loading..."
         if viewModel != nil { configureViewModel(viewModel!) }
-        
     }
 
     ///Subscribes view model to handle errors, messages, loading indicators
     func configureViewModel(_ vm: ViewModel) {
-        
         vm.isLoadingSubject.observeOn(MainScheduler.instance).subscribe(onNext: { [unowned self] bool in
-            if bool { self.hud.show(in: self.view) } else { hud.dismiss() }
+            if bool { self.showLoader() } else { self.hideLoader() }
         }).disposed(by: disposeBag)
-        
         vm.messagesSubject.observeOn(MainScheduler.instance).subscribe(onNext: { [unowned self] msg in
             self.displayAlert(message: msg)
         }).disposed(by: disposeBag)
-        
         vm.errorSubject.observeOn(MainScheduler.instance).subscribe(onNext: { [unowned self] err in
             self.handleError(err)
         }).disposed(by: disposeBag)
-        
+    }
+    
+    func showLoader() {
+        self.hud.show(in: self.view)
+    }
+    
+    func hideLoader() {
+        self.hud.dismiss()
     }
     
     func restartApp() {
@@ -78,21 +80,21 @@ class ViewController<T: ViewModel>: UIViewController {
     }
     
     func handleError(_ error: Error) {
-        if error is APIError {
-            if case APIError.unauthenticated = error {
-                displayAlert(withTitle: "Error", message: error.localizedDescription, btnHandler: { _ in
-                    UserSession.endCurrent()
-                    self.restartApp()
-                })
-            } else {
-                displayAlert(withTitle: "Error", message: error.localizedDescription, btnHandler: nil)
-            }
+        self.hideLoader()
+        guard let apiError = error as? APIError else {
+            print("API Request Error: \((error as NSError))")
+            displayAlert(withTitle: "Unexpected Error", message: "code: \((error as NSError).code)", btnHandler: nil)
             return
         }
-        print("API Request Error: \((error as NSError))")
-        displayAlert(withTitle: "Unexpected Error", message: "code: \((error as NSError).code)", btnHandler: nil)
-        
+        switch apiError {
+        case .unauthenticated:
+            displayAlert(withTitle: "Error", message: error.localizedDescription, btnHandler: { _ in
+                UserSession.endCurrent()
+                self.restartApp()
+            })
+        default:
+            displayAlert(withTitle: "Error", message: error.localizedDescription, btnHandler: nil)
+        }
     }
-    
 }
 

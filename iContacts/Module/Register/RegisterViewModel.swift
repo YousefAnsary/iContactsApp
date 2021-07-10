@@ -28,17 +28,16 @@ class RegisterViewModel: ViewModel {
         registerBtnColorDriver = registerBtnEnableDriver.map{ return $0 ? #colorLiteral(red: 0.1304919422, green: 0.1321794689, blue: 0.6463773545, alpha: 0.6461365582) : #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 0.6382973031) }
     }
     
-    func register()-> Observable<UserData> {
+    func register()-> Completable {
         self.isLoadingSubject.onNext(true)
         let name = nameRelay.value, email = emailRelay.value, password = passwordRelay.value
-        return AuthenticationService.register(email: email, userName: name, password: password).catchError { err in
-            self.isLoadingSubject.onNext(false)
-            self.errorSubject.onNext(err)
-            return .empty()
-        }.do(onNext: { value in
-            UserSession.startSession(withData: value)
-            self.isLoadingSubject.onNext(false)
-        })
+        let single = AuthenticationService.register(email: email, userName: name, password: password)
+        return single.do(onSuccess: { [weak self] data in
+            UserSession.startSession(withData: data)
+            self?.isLoadingSubject.onNext(false)
+        }, onError: { [weak self] err in
+            self?.errorSubject.onNext(err)
+        }).asCompletable()
     }
     
 }

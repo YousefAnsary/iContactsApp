@@ -14,5 +14,4 @@ class ViewModel {
     let messagesSubject = PublishSubject<String>()
     let errorSubject = PublishSubject<Error>()
     let disposeBag = DisposeBag()
-    
 }

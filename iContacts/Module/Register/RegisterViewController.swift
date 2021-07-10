@@ -21,13 +21,12 @@ class RegisterViewController: ViewController<RegisterViewModel> {
     //MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         bindViewModel()
     }
     
     //MARK: - Private Methods
     private func bindViewModel() {
-        guard let viewModel = viewModel else {fatalError("ViewModel is nil")}
+        guard let viewModel = viewModel else { fatalError("ViewModel is nil") }
         nameTF.rx.text.orEmpty.bind(to: viewModel.nameRelay).disposed(by: disposeBag)
         emailTF.rx.text.orEmpty.bind(to: viewModel.emailRelay).disposed(by: disposeBag)
         passwordTF.rx.text.orEmpty.bind(to: viewModel.passwordRelay).disposed(by: disposeBag)
@@ -36,9 +35,8 @@ class RegisterViewController: ViewController<RegisterViewModel> {
         viewModel.registerBtnColorDriver.drive(registerBtn.rx.backgroundColor).disposed(by: disposeBag)
         registerBtn.rx.tap.flatMap{
             viewModel.register()
-        }.observeOn(MainScheduler.instance).subscribe(onNext: { [unowned self] val in
+        }.observeOn(MainScheduler.instance).asCompletable().subscribe(onCompleted: { [unowned self] in
             self.navigateToHome?()
         }).disposed(by: disposeBag)
     }
-    
 }

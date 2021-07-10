@@ -24,13 +24,11 @@ class HomeViewController: ViewController<HomeViewModel>, UITableViewDelegate {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupNavigationBarBtns()
         setupTableView()
         setupButtonsBinding()
         bindViewModel()
         viewModel?.getContacts()
-        
     }
     
     //MARK: - Private Functions
@@ -46,19 +44,15 @@ class HomeViewController: ViewController<HomeViewModel>, UITableViewDelegate {
     private func setupTableView() {
         contactsTableView.register(cellClass: ContactCell.self)
         contactsTableView.rx.setDelegate(self).disposed(by: disposeBag)
-        
         contactsTableView.rx.itemDeleted.subscribe(weak: self, onNext: { owner, index in
             owner.viewModel!.deleteContact(atIndex: index.row)
         }).disposed(by: disposeBag)
-        
         contactsTableView.rx.itemInserted.subscribe(weak: self, onNext: { owner, index in
             owner.navigateToEditContact?(index.row)
         }).disposed(by: disposeBag)
-        
         contactsTableView.rx.itemSelected.subscribe(weak: self, onNext: { owner, indx in
             owner.tableCellDidSelected(at: indx.row)
         }).disposed(by: disposeBag)
-        
     }
     
     private func setupButtonsBinding() {
@@ -68,7 +62,7 @@ class HomeViewController: ViewController<HomeViewModel>, UITableViewDelegate {
     }
     
     private func bindViewModel() {
-        guard let viewModel = viewModel else {fatalError("ViewModel is nil")}
+        guard let viewModel = viewModel else { fatalError("ViewModel is nil") }
         let contactsDriver = viewModel.contactsRelay.asDriver()
         contactsDriver.drive(contactsTableView.rx.items(cellType: ContactCell.self)) { indx, item, cell in
             cell.contact = item
@@ -78,8 +72,7 @@ class HomeViewController: ViewController<HomeViewModel>, UITableViewDelegate {
     private func tableCellDidSelected(at index: Int) {
         let element = viewModel?.contactsRelay.value[index]
         let alert = UIAlertController(title: element?.name, message: nil, preferredStyle: .actionSheet)
-        
-        let callAction = UIAlertAction(title: "Call", style: .default, handler: { _ in
+        let callAction = UIAlertAction(title: "Call", style: .default, handler: { [weak self] _ in
             let alert = UIAlertController(title: "Numbers", message: nil, preferredStyle: .actionSheet)
             element?.phoneNumbers?.map{ number in UIAlertAction(title: number, style: .default) { _ in
                 UIApplication.shared.open(URL(string: "tel://\(number)")!)
@@ -87,10 +80,9 @@ class HomeViewController: ViewController<HomeViewModel>, UITableViewDelegate {
                 alert.addAction($0)
             }
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
+            self?.present(alert, animated: true)
         })
-        
-        let emailAction = UIAlertAction(title: "E-Mail", style: .default, handler: { _ in
+        let emailAction = UIAlertAction(title: "E-Mail", style: .default, handler: { [weak self] _ in
             let alert = UIAlertController(title: "E-Mails", message: nil, preferredStyle: .actionSheet)
             element?.emails?.map{ email in UIAlertAction(title: email, style: .default) { _ in
                 UIApplication.shared.open(URL(string: "mailto:\(email)")!)
@@ -98,9 +90,8 @@ class HomeViewController: ViewController<HomeViewModel>, UITableViewDelegate {
                 alert.addAction($0)
             }
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
+            self?.present(alert, animated: true)
         })
-        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(callAction)
         alert.addAction(emailAction)
@@ -121,9 +112,4 @@ class HomeViewController: ViewController<HomeViewModel>, UITableViewDelegate {
         let swipeActions = UISwipeActionsConfiguration(actions: [deleteButton, editButton])
         return swipeActions
     }
-    
 }
-
-
-
-

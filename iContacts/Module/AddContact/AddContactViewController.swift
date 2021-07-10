@@ -28,7 +28,6 @@ class AddContactViewController: ViewController<AddContactViewModel> {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupTables()
         setupButtonsActions()
         bindViewModel()
@@ -38,13 +37,11 @@ class AddContactViewController: ViewController<AddContactViewModel> {
     private func setupTables() {
         numbersTable.register(cellClass: InputCell.self)
         emailsTable.register(cellClass: InputCell.self)
-        
         let numbersDriver = viewModel!.numbersRelay.asDriver()
         numbersDriver.drive(numbersTable.rx.items(cellType: InputCell.self)){ [unowned self] indx, item, cell in
             self.viewModel!.setupNumberTableCell(cell, index: indx)
         }.disposed(by: disposeBag)
         viewModel!.numbersTableHeightDriver.drive(numberTableHeight.rx.constant).disposed(by: disposeBag)
-        
         let emailsDriver = viewModel!.emailsRelay.asDriver()
         emailsDriver.drive(emailsTable.rx.items(cellType: InputCell.self)){ [unowned self] indx, item, cell in
             self.viewModel!.setupEmailTableCell(cell, index: indx)
@@ -53,15 +50,12 @@ class AddContactViewController: ViewController<AddContactViewModel> {
     }
     
     private func setupButtonsActions() {
-        
         addNumberBtn.rx.tap.subscribe(weak: self, onNext: { owner, _ in
             owner.viewModel?.addNumberBtnTapped()
         }).disposed(by: disposeBag)
-        
         addEmailBtn.rx.tap.subscribe(weak: self, onNext: { owner, _ in
             owner.viewModel?.addEmailBtnTapped()
         }).disposed(by: disposeBag)
-        
         doneBtn.rx.tap.flatMap { [unowned self] in
             self.viewModel!.doneBtnTapped()
         }.subscribeOn(MainScheduler.instance).subscribe(weak: self, onNext: { owner, _ in
@@ -69,7 +63,6 @@ class AddContactViewController: ViewController<AddContactViewModel> {
                 owner.dismiss(animated: true)
             }
         }).disposed(by: disposeBag)
-        
         cancelBtn.rx.tap.subscribe(weak: self, onNext: { owner, _ in
             owner.dismiss(animated: true)
         }).disposed(by: disposeBag)
@@ -80,7 +73,6 @@ class AddContactViewController: ViewController<AddContactViewModel> {
         viewModel!.nameRelay.asDriver().drive(nameTF.rx.text).disposed(by: disposeBag)
         nameTF.rx.text.orEmpty.bind(to: viewModel!.nameRelay).disposed(by: disposeBag)
     }
-    
 }
 
 extension ObservableType {
@@ -95,7 +87,7 @@ extension ObservableType {
             guard let owner = owner else {return}
             onError?(owner, err)
         }, onDisposed:  {
-//            print("Disposed")
+            print("Disposed")
         })
     }
     

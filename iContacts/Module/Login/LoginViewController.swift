@@ -30,7 +30,7 @@ class LoginViewController: ViewController<LoginViewModel> {
     
     //MARK: - Private Functions
     private func bindViewModel() {
-        guard viewModel != nil else {fatalError("ViewModel is nil")}
+        guard viewModel != nil else { fatalError("ViewModel is nil") }
         emailTF.rx.text.orEmpty.bind(to: viewModel!.emailRelay).disposed(by: disposeBag)
         passwordTF.rx.text.orEmpty.bind(to: viewModel!.passwordRelay).disposed(by: disposeBag)
         viewModel!.loginBtnEnableDriver.drive(loginBtn.rx.isEnabled).disposed(by: disposeBag)
@@ -40,13 +40,12 @@ class LoginViewController: ViewController<LoginViewModel> {
     private func bindBtnsActions() {
         loginBtn.rx.tap.flatMap { [unowned self] in
             self.viewModel!.login()
-        }.observeOn(MainScheduler.instance).subscribe(onNext: { [unowned self] value in
-            self.navigateToHome?()
+        }.observeOn(MainScheduler.instance).asCompletable()
+        .subscribe(onCompleted: { [weak self] in
+            self?.navigateToHome?()
         }).disposed(by: disposeBag)
-        
         registerBtn.rx.tap.subscribe(weak: self, onNext: { owner, _ in
             owner.navigateToRegister?()
         }).disposed(by: disposeBag)
     }
-    
 }

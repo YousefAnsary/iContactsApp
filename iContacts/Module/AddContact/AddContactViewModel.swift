@@ -34,7 +34,7 @@ class AddContactViewModel: ViewModel {
         nameRelay = .init(value: "")
         numbersRelay = .init(value: [""])
         emailsRelay = .init(value: [""])
-        numbersTableHeightDriver = numbersRelay.map{CGFloat($0.count * 60)}.asDriver(onErrorJustReturn: 0)
+        numbersTableHeightDriver = numbersRelay.map { CGFloat($0.count * 60) }.asDriver(onErrorJustReturn: 0)
         emailsTableHeightDriver = emailsRelay.map{CGFloat($0.count * 60)}.asDriver(onErrorJustReturn: 0)
         contactDidAdd = addSuccessCompletion
         contactDidEdit = nil
@@ -49,25 +49,23 @@ class AddContactViewModel: ViewModel {
         nameRelay = .init(value: contact.name ?? "")
         numbersRelay = .init(value: numbers)
         emailsRelay = .init(value: emails)
-        numbersTableHeightDriver = numbersRelay.map{CGFloat($0.count * 60)}.asDriver(onErrorJustReturn: 0)
-        emailsTableHeightDriver = emailsRelay.map{CGFloat($0.count * 60)}.asDriver(onErrorJustReturn: 0)
+        numbersTableHeightDriver = numbersRelay.map { CGFloat($0.count * 60) }.asDriver(onErrorJustReturn: 0)
+        emailsTableHeightDriver = emailsRelay.map { CGFloat($0.count * 60) }.asDriver(onErrorJustReturn: 0)
         contactDidEdit = editSuccessCompletion
         contactDidAdd = nil
         self.index = index
         id = contact.id
     }
     
-    func doneBtnTapped()-> Observable<()> {
+    func doneBtnTapped()-> Completable {
         self.isLoadingSubject.onNext(true)
         let sendNumbers = numbers.filter{ !$0.isEmpty }
         let sendEmails = emails.filter{ !$0.isEmpty }
         let contact = Contact(id: id, name: nameRelay.value, phoneNumbers: sendNumbers, emails: sendEmails)
         let requestObservable = isEditing ? ContactsService.update(contact: contact) : ContactsService.create(contact: contact)
-        return requestObservable.catchError({ [weak self] err in
-            self?.isLoadingSubject.onNext(false)
+        return requestObservable.do(onError: { [weak self] err in
             self?.errorSubject.onNext(err)
-            return .empty()
-        }).do(onNext: { [weak self] _ in
+        }, onCompleted: { [weak self] in
             guard let self = self else {return}
             self.isLoadingSubject.onNext(false)
             if self.isEditing {
@@ -99,7 +97,6 @@ class AddContactViewModel: ViewModel {
                 owner.numbers.append(string)
             }
         }).disposed(by: cell.disposeBag)
-        
         cell.inputTF.rx.controlEvent(.editingDidEnd).subscribe(weak: self, onNext: { owner, _ in
 //            if index == owner.numbers.count - 1 && !owner.numbers[index].isEmpty {
 //                owner.numbers.append("")
@@ -137,5 +134,4 @@ class AddContactViewModel: ViewModel {
             owner.emailsRelay.accept(owner.emails)
         }).disposed(by: cell.disposeBag)
     }
-    
 }
